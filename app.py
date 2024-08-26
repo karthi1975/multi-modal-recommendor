@@ -15,8 +15,17 @@ from langchain_community.embeddings import BedrockEmbeddings
 
 import boto3
 
+aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+
 # Initialize a boto3 client for AWS Bedrock
-bedrock = boto3.client('bedrock-runtime')
+# bedrock = boto3.client('bedrock-runtime')
+bedrock = boto3.client(
+    service_name="bedrock-runtime",
+    region_name="us-west-2",
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key
+)
 
 # Define embeddings using the Bedrock client and a specific model
 embeddings = BedrockEmbeddings(
